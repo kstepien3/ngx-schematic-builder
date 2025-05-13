@@ -1,5 +1,6 @@
 # Angular Schematic Builder
 A custom Angular builder for compiling and bundling Angular schematics.
+
 ## Overview
 This project provides a builder for Angular schematics that:
 - Compiles TypeScript files using a specified tsconfig
@@ -38,6 +39,10 @@ Add the builder to your file: `angular.json`
 | `tsConfig` | Path to the TypeScript configuration file | Yes |
 | `files` | Array of files to copy to the output directory | No |
 
+## See usage in package:
+- NPM Package: [https://www.npmjs.com/package/@ng-zen/cli](https://www.npmjs.com/package/@ng-zen/cli)
+- Example implementation: [https://github.com/kstepien3/ng-zen/blob/master/angular.json](https://github.com/kstepien3/ng-zen/blob/master/angular.json)
+
 ## Features
 - **TypeScript Compilation**: Compiles your TypeScript files according to the specified tsconfig
 - **Output Cleaning**: Ensures a clean output directory before building
@@ -58,6 +63,9 @@ The builder executes the following steps:
 - TypeScript
 
 ## License
-MIT (or specify your license)
+MIT
+
 ## Contributing
 Contributions are welcome! Please feel free to submit a Pull Request.
+
+
