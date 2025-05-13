@@ -1,0 +1,9 @@
+{
+  "builders": {
+    "build": {
+      "implementation": "./src/schematic-builder.js",
+      "schema": "./src/schema.json",
+      "description": "Custom builder for angular schematics"
+    }
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "name": "ngx-schematic-builder",
+  "version": "0.1.0",
+  "description": "A tool for building Angular schematic projects. Compiles and packages your custom schematics, preparing them for publishing and use.",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kstepien3/ngx-schematic-builder.git"
+  },
+  "builders": "builders.json",
+  "keywords": [
+    "angular",
+    "schematics",
+    "builder",
+    "build",
+    "tool",
+    "compile",
+    "package",
+    "publish",
+    "generator",
+    "scaffolding",
+    "ngx",
+    "custom-schematics",
+    "angular-cli",
+    "typescript"
+  ],
+  "author": "Konrad Stępień",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kstepien3/ngx-schematic-builder/issues"
+  },
+  "homepage": "https://github.com/kstepien3/ngx-schematic-builder#readme",
+  "devDependencies": {
+    "@types/fs-extra": "^11.0.4",
+    "@types/node": "^22.15.17",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "@angular-devkit/architect": "^0.1902.11",
+    "@angular-devkit/core": "^19.2.11",
+    "cpy": "^11.1.0",
+    "execa": "^9.5.3",
+    "fs-extra": "^11.3.0"
+  }
+}
