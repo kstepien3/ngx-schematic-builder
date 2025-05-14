@@ -1,6 +1,6 @@
 {
   "name": "ngx-schematic-builder",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "A tool for building Angular schematic projects. Compiles and packages your custom schematics, preparing them for publishing and use.",
   "main": "index.js",
   "scripts": {
