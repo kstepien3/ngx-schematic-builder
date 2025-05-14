@@ -8,38 +8,71 @@ This project provides a builder for Angular schematics that:
 - Copies specified project files to the output directory
 - Prepares a clean package.json for distribution
 
-## Installation
-``` bash
-npm install -D ngx-schematic-builder
+## Getting started
+
+### Create an empty schematics project _(skip if you have one)_
+
+**Install cli globally**
+```bash
+npm install -g @angular-devkit/schematics-cli
 ```
 
-## Usage
-Add the builder to your file: `angular.json`
+**Create a new project**
+```bash
+schematics blank --name=new-project
+```
+
+### Installation dependencies
+``` bash
+npm i -D @angular/cli ngx-schematic-builder
+```
+
+### Usage
+Create or edit _(if you have)_ `angular.json` file and put `build` prop in `projects.*project name*.architect`.
+
+You can copy the configuration from below. 
+
 ``` json
 {
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
   "projects": {
-    "your-project": {
+    "schematic": {
+      "projectType": "library",
+      "root": "",
+      "sourceRoot": "src",
       "architect": {
         "build": {
           "builder": "ngx-schematic-builder:build",
           "options": {
-            "files": ["src/**", "README.md", "LICENSE", "CHANGELOG.md"],
-            "tsConfig": "tsconfig.schematics.json"
+            "files": ["src/**", "package.json", "README.md"],
+            "tsConfig": "tsconfig.json"
           }
         }
       }
     }
   }
 }
+
 ```
+
 ### Options
 
-| Option | Description | Required |
-| --- | --- | --- |
-| `tsConfig` | Path to the TypeScript configuration file | Yes |
-| `files` | Array of files to copy to the output directory | No |
+| Option | Type      | Description | Required |
+| --- |-----------| --- | --- |
+| `tsConfig` | `string`  | Path to the TypeScript configuration file | Yes |
+| `files` | `string[]` | Array of files to copy to the output directory | No |
 
-## See usage in package:
+### Build
+
+Run command:
+```bash
+ng build 
+```
+
+## See usage in the package:
+
+**@ng-zen/cli**
 - NPM Package: [https://www.npmjs.com/package/@ng-zen/cli](https://www.npmjs.com/package/@ng-zen/cli)
 - Example implementation: [https://github.com/kstepien3/ng-zen/blob/master/angular.json](https://github.com/kstepien3/ng-zen/blob/master/angular.json)
 

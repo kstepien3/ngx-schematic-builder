@@ -35,6 +35,12 @@
     "url": "https://github.com/kstepien3/ngx-schematic-builder/issues"
   },
   "homepage": "https://github.com/kstepien3/ngx-schematic-builder#readme",
+  "peerDependencies": {
+    "@angular-devkit/core": "*",
+    "@angular-devkit/schematics": "*",
+    "@angular/cli": "*",
+    "typescript": "*"
+  },
   "devDependencies": {
     "@types/fs-extra": "^11.0.4",
     "@types/node": "^22.15.17",
