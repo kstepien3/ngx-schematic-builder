@@ -110,6 +110,26 @@ You can copy the configuration from below.
 }
 
 ```
+
+### Package.json update
+
+Change package.json the "schematic" property from this
+
+```json
+{
+  "schematics": "./src/collection.json"
+}
+```
+
+To this:
+```json
+{
+  "schematics": "./collection.json"
+}
+```
+
+Why? After build, there is no `src` folder, and dist files are directly next to the package.json file. 
+
 ### Build
 
 Run command:
@@ -152,11 +172,10 @@ The builder executes the following steps:
 **Issue**: Error: Unable to locate or read the "schematic" file specified in package.json.
 You might need to remove `src` path
 **Solution**: If your tsconfig file has `"rootDir": "src"` & `"outDir": "dist"`, make you sure your _package.json_ file should looks like this:
-```json+diff
+```json
 {
   // ...
-- "schematics": "./src/collection.json",
-+ "schematics": "./collection.json",
+  "schematics": "./collection.json",
   // ...        
 }
 ```
