@@ -66,7 +66,7 @@ You can copy the configuration from below.
         "build": {
           "builder": "ngx-schematic-builder:build",
           "options": {
-            "files": ["src/**", "LICENSE.md", "README.md"],
+            "files": ["src/**", "LICENSE", "README.md"],
             "tsConfig": "tsconfig.json"
           }
         }
