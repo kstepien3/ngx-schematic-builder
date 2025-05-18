@@ -1,5 +1,23 @@
 # Angular Schematic Builder
+
 A custom Angular builder for compiling and bundling Angular schematics.
+
+## Table of Contents
+- [Overview](#overview)
+- [Getting Started](#getting-started)
+    - [Creating a New Schematics Project](#create-an-empty-schematics-project)
+    - [Installation](#installation-dependencies)
+- [Usage](#usage)
+    - [Options](#options)
+    - [Building](#build)
+- [Examples](#see-usage-in-the-package)
+- [Features](#features)
+- [Build Process](#build-process)
+- [Output Structure](#output-structure)
+- [Requirements](#requirements)
+- [Troubleshooting](#troubleshooting)
+- [License](#license)
+- [Contributing](#contributing)
 
 ## Overview
 This project provides a builder for Angular schematics that:
@@ -8,11 +26,14 @@ This project provides a builder for Angular schematics that:
 - Copies specified project files to the output directory
 - Prepares a clean package.json for distribution
 
-## Getting started
+## Getting Started
 
-### Create an empty schematics project _(skip if you have one)_
+### Create an empty schematics project
+
+_(skip if you have one)_
 
 **Install cli globally**
+
 ```bash
 npm install -g @angular-devkit/schematics-cli
 ```
@@ -30,7 +51,7 @@ npm i -D @angular/cli ngx-schematic-builder
 ### Usage
 Create or edit _(if you have)_ `angular.json` file and put `build` prop in `projects.*project name*.architect`.
 
-You can copy the configuration from below. 
+You can copy the configuration from below.
 
 ``` json
 {
@@ -45,7 +66,7 @@ You can copy the configuration from below.
         "build": {
           "builder": "ngx-schematic-builder:build",
           "options": {
-            "files": ["src/**", "package.json", "README.md"],
+            "files": ["src/**", "LICENSE.md", "README.md"],
             "tsConfig": "tsconfig.json"
           }
         }
@@ -53,7 +74,6 @@ You can copy the configuration from below.
     }
   }
 }
-
 ```
 
 ### Options
@@ -63,12 +83,67 @@ You can copy the configuration from below.
 | `tsConfig` | `string`  | Path to the TypeScript configuration file | Yes |
 | `files` | `string[]` | Array of files to copy to the output directory | No |
 
+
+### TS Config update
+```json
+{
+  "compilerOptions": {
+    "baseUrl": "tsconfig",
+    "target": "es6",
+    "declaration": true,
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "noEmitOnError": true,
+    "noFallthroughCasesInSwitch": true,
+    "esModuleInterop": true,
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "noUnusedParameters": true,
+    "noUnusedLocals": true,
+    "skipDefaultLibCheck": true,
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "strictNullChecks": true,
+    "types": ["node"],
+    "outDir": "dist" // Add this
+  }
+}
+
+```
+
+### Package.json update
+
+Change package.json the "schematic" property from this
+
+```json
+{
+  "schematics": "./src/collection.json"
+}
+```
+
+To this:
+```json
+{
+  "schematics": "./collection.json"
+}
+```
+
+Why? After build, there is no `src` folder, and dist files are directly next to the package.json file. 
+
 ### Build
 
 Run command:
 ```bash
 ng build 
 ```
+
+## Output Structure
+
+After running the build command, your output directory (as specified in your tsconfig) will contain:
+- Compiled JavaScript files from your TypeScript source
+- Declaration files (.d.ts)
+- A cleaned package.json (without scripts and devDependencies)
+- Any additional files specified in the `files` option
 
 ## See usage in the package:
 
@@ -90,10 +165,25 @@ The builder executes the following steps:
 4. Copies specified project files to the output directory
 5. Optimizes package.json by removing scripts and devDependencies
 
+## Troubleshooting
+
+### Common Issues
+
+**Issue**: Error: Unable to locate or read the "schematic" file specified in package.json.
+You might need to remove `src` path
+**Solution**: If your tsconfig file has `"rootDir": "src"` & `"outDir": "dist"`, make you sure your _package.json_ file should looks like this:
+```json
+{
+  // ...
+  "schematics": "./collection.json",
+  // ...
+}
+```
+
 ## Requirements
-- Node.js
-- Angular CLI
-- TypeScript
+- Node.js (v14.0.0 or later)
+- Angular CLI (v12.0.0 or later)
+- TypeScript (v4.0.0 or later)
 
 ## License
 MIT
@@ -101,4 +191,9 @@ MIT
 ## Contributing
 Contributions are welcome! Please feel free to submit a Pull Request.
 
+1. Fork the repository
+2. Create a feature branch: `git checkout -b feature/amazing-feature`
+3. Commit changes: `git commit -m 'Add amazing feature'`
+4. Push to branch: `git push origin feature/amazing-feature`
+5. Open a Pull Request
 

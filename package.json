@@ -4,7 +4,8 @@
   "description": "A tool for building Angular schematic projects. Compiles and packages your custom schematics, preparing them for publishing and use.",
   "main": "index.js",
   "scripts": {
-    "build": "tsc",
+    "build": "tsc -p tsconfig.json",
+    "build:watch": "tsc -p tsconfig.json --watch",
     "prepack": "npm run build"
   },
   "repository": {
@@ -44,6 +45,7 @@
     "@types/fs-extra": "^11.0.4",
     "@types/node": "^22.15.17",
     "ts-node": "^10.9.2",
+    "prettier": "^3.5.3",
     "typescript": "^5.8.3"
   },
   "dependencies": {
