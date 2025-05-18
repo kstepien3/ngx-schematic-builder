@@ -16,6 +16,7 @@
     "skipLibCheck": true,
     "sourceMap": true,
     "strictNullChecks": true,
-    "types": ["node"],
+    "types": ["node"]
   },
+  "exclude": ["**/*.spec.ts"]
 }
