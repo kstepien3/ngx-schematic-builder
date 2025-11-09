@@ -6,7 +6,8 @@
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "build:watch": "tsc -p tsconfig.json --watch",
-    "prepack": "npm run build"
+    "prepack": "npm run build",
+    "test": "vitest"
   },
   "repository": {
     "type": "git",
@@ -44,13 +45,14 @@
   "devDependencies": {
     "@types/fs-extra": "^11.0.4",
     "@types/node": "^22.15.17",
-    "ts-node": "^10.9.2",
     "prettier": "^3.5.3",
-    "typescript": "^5.8.3"
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3",
+    "vitest": "^4.0.8"
   },
   "dependencies": {
     "@angular-devkit/architect": "^0.1902.11",
-    "@angular-devkit/core": "^19.2.11",
+    "@angular-devkit/core": "*",
     "cpy": "^11.1.0",
     "execa": "^9.5.3",
     "fs-extra": "^11.3.0"
