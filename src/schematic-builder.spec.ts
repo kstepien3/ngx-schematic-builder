@@ -77,7 +77,7 @@ describe('cleanOutputDir', () => {
   it('should remove and recreate directory', async () => {
     const outputDir = '/fake/dist';
 
-    const mockPathExists = vi.spyOn(fs, 'pathExists').mockResolvedValue(true);
+    const mockPathExists = vi.spyOn(fs, 'pathExists').mockImplementation(() => Promise.resolve(true));
     const mockRm = vi.spyOn(fs, 'rm').mockResolvedValue();
     const mockMkdir = vi.spyOn(fs, 'mkdir').mockResolvedValue();
 
