@@ -1,3 +1,5 @@
+// noinspection JSUnusedGlobalSymbols
+
 import { BuilderContext, BuilderOutput, createBuilder } from '@angular-devkit/architect';
 import { JsonObject } from '@angular-devkit/core';
 
@@ -7,7 +9,7 @@ import path from 'node:path';
 import { execa } from 'execa';
 import { tryCatch } from './utils/try-catch';
 
-interface Options extends JsonObject {
+export interface Options extends JsonObject {
   tsConfig: string;
   files: string[];
 }
@@ -19,7 +21,8 @@ const logger = {
     endBuild: 'Build process completed successfully! 🎉 ',
   },
   error: {
-    buildValidate: 'Error: Unable to locate or read the "schematic" file specified in package.json. \nYou might need to remove `src` path',
+    buildValidate:
+      'Error: Unable to locate or read the "schematic" file specified in package.json. \nYou might need to remove `src` path',
     tsConfigOption: 'Error: tsConfig is required \nProvide tsconfig path in options in angular.json file!',
     outputDir: 'Error: Failed to get output directory',
     cleanOutputDir: 'Error: Failed to clean output directory',
@@ -29,7 +32,6 @@ const logger = {
   },
 } as const;
 
-
 export default createBuilder(buildSchematic);
 
 async function buildSchematic(options: Options, context: BuilderContext): Promise<BuilderOutput> {
@@ -38,7 +40,7 @@ async function buildSchematic(options: Options, context: BuilderContext): Promis
     return { success: false, error };
   }
 
-  const files = ["package.json", ...options.files]
+  const files = ['package.json', ...options.files];
 
   context.logger.info(logger.info.startBuild);
 
@@ -53,13 +55,14 @@ async function buildSchematic(options: Options, context: BuilderContext): Promis
     context.logger.info(logger.info.noOutDir);
 
     // COMPILE TYPESCRIPT
-    const { error: compileTypescriptErr } = await tryCatch(compileTypeScript(options.tsConfig, context.currentDirectory));
+    const { error: compileTypescriptErr } = await tryCatch(
+      compileTypeScript(options.tsConfig, context.currentDirectory)
+    );
     if (compileTypescriptErr) return handleError(context, logger.error.compileTypeScript, compileTypescriptErr.message);
 
     context.logger.info(logger.info.endBuild);
     return { success: true };
   }
-
 
   // CLEAN OUTPUT DIR
   const { error: cleanUpDirErr } = await tryCatch(cleanOutputDir(outputDir));
@@ -70,33 +73,26 @@ async function buildSchematic(options: Options, context: BuilderContext): Promis
   if (compileTypescriptErr) return handleError(context, logger.error.compileTypeScript, compileTypescriptErr.message);
 
   // COPY PROJECT FILES
-  const { error: copyProjectFilesErr } = await tryCatch(
-    copyProjectFiles(files, outputDir, context.currentDirectory)
-  );
+  const { error: copyProjectFilesErr } = await tryCatch(copyProjectFiles(files, outputDir, context.currentDirectory));
   if (copyProjectFilesErr) return handleError(context, logger.error.copyProjectFiles, copyProjectFilesErr.message);
 
   // CLEAN PACKAGE.JSON
   const { error: cleanPackageJsonErr } = await tryCatch(cleanPackageJson(outputDir));
   if (cleanPackageJsonErr) return handleError(context, logger.error.cleanPackageJson, cleanPackageJsonErr.message);
 
-
-
   // Validate output
-  const {error: buildValidateErr } = await tryCatch(buildValidate(outputDir))
+  const { error: buildValidateErr } = await tryCatch(buildValidate(outputDir));
   if (buildValidateErr) return handleError(context, logger.error.buildValidate, buildValidateErr.message);
-
 
   context.logger.info(logger.info.endBuild);
   return { success: true };
 }
 
 function validateProject(options: Options): string | null {
-  if (options.tsConfig === undefined)
-    return logger.error.tsConfigOption;
+  if (options.tsConfig === undefined) return logger.error.tsConfigOption;
 
   return null;
 }
-
 
 function handleError(context: BuilderContext, logMessage: string, errorMessage: string): BuilderOutput {
   context.logger.error(logMessage);
@@ -156,5 +152,7 @@ async function cleanPackageJson(outputDir: string): Promise<void> {
 async function buildValidate(outputDir: string): Promise<void> {
   const distPackageJson = path.join(outputDir, 'package.json');
   const pkg = await fs.readJson(distPackageJson);
-  await fs.readFile(path.join(outputDir, pkg['schematics']))
+  await fs.readFile(path.join(outputDir, pkg['schematics']));
 }
+
+export { validateProject, handleError, getOutputDir, cleanOutputDir };
